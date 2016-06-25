@@ -323,12 +323,22 @@ CHInstance.prototype.updateLayer = function() {
 		if (this._layer) {
 			this._cesium.entities.remove(this._layer);
 		}
-		
+
+        	// Work around issue with material rendering in Cesium.
+        	material = new Cesium.ImageMaterialProperty({
+	        	image: this._heatmap._renderer.canvas,
+        	});
+        	if (Cesium.VERSION >= "1.21") {
+           		material.transparent = true;
+        	} else if (Cesium.VERSION >= "1.16") {
+            		material.alpha = 0.99;
+        	}
+
 		this._layer = this._cesium.entities.add({
 			show: true,
 			rectangle: {
 				coordinates: this._rectangle,
-				material: this._heatmap._renderer.canvas
+				material: material
 			}
 		});
 	} else {
