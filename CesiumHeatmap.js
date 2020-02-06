@@ -694,7 +694,6 @@ CHInstance.prototype.updateLayer = function () {
 					l[o - 1] = n[q + 2];
 					l[o] = j ? n[q + 3] : r
 				}
-				k.data = l;
 				this.ctx.putImageData(k, a, b);
 				this._renderBoundaries = [1e3, 1e3, 0, 0]
 			}, getValueAt: function (a) {
